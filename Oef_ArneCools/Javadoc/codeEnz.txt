@@ -1,0 +1,49 @@
+Microsoft Windows [Version 10.0.10240]
+(c) 2015 Microsoft Corporation. All rights reserved.
+
+C:\Users\arnec>path %path%;"C:\Program Files (x86)\Java\jdk1.8.0_66\bin"
+
+C:\Users\arnec>cd labodvb
+
+C:\Users\arnec\labodvb>path %path%;"C:\Program Files (x86)\Java\jdk1.8.0_66\bin"
+
+C:\Users\arnec\labodvb>path
+PATH=C:\ProgramData\Oracle\Java\javapath;C:\Program Files (x86)\Razer Chroma SDK\bin;C:\Program Files\Razer Chroma SDK\bin;C:\Program Files (x86)\Common Files\Intel\Shared Libraries\redist\intel64\compiler;C:\Program Files (x86)\Intel\iCLS Client\;C:\Program Files\Intel\iCLS Client\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Users\arnec\.dnx\bin;C:\Program Files\Microsoft DNX\Dnvm\;C:\Program Files\Microsoft SQL Server\120\Tools\Binn\;C:\Program Files (x86)\Skype\Phone\;C:\Users\arnec\.dnx\bin;C:\Users\arnec\.dnx\bin;"C:\Program Files (x86)\Java\jdk1.8.0_66\bin";"C:\Program Files (x86)\Java\jdk1.8.0_66\bin"
+
+C:\Users\arnec\labodvb>javac
+Usage: javac <options> <source files>
+where possible options include:
+  -g                         Generate all debugging info
+  -g:none                    Generate no debugging info
+  -g:{lines,vars,source}     Generate only some debugging info
+  -nowarn                    Generate no warnings
+  -verbose                   Output messages about what the compiler is doing
+  -deprecation               Output source locations where deprecated APIs are used
+  -classpath <path>          Specify where to find user class files and annotation processors
+  -cp <path>                 Specify where to find user class files and annotation processors
+  -sourcepath <path>         Specify where to find input source files
+  -bootclasspath <path>      Override location of bootstrap class files
+  -extdirs <dirs>            Override location of installed extensions
+  -endorseddirs <dirs>       Override location of endorsed standards path
+  -proc:{none,only}          Control whether annotation processing and/or compilation is done.
+  -processor <class1>[,<class2>,<class3>...] Names of the annotation processors to run; bypasses default discovery process
+  -processorpath <path>      Specify where to find annotation processors
+  -parameters                Generate metadata for reflection on method parameters
+  -d <directory>             Specify where to place generated class files
+  -s <directory>             Specify where to place generated source files
+  -h <directory>             Specify where to place generated native header files
+  -implicit:{none,class}     Specify whether or not to generate class files for implicitly referenced files
+  -encoding <encoding>       Specify character encoding used by source files
+  -source <release>          Provide source compatibility with specified release
+  -target <release>          Generate class files for specific VM version
+  -profile <profile>         Check that API used is available in the specified profile
+  -version                   Version information
+  -help                      Print a synopsis of standard options
+  -Akey[=value]              Options to pass to annotation processors
+  -X                         Print a synopsis of nonstandard options
+  -J<flag>                   Pass <flag> directly to the runtime system
+  -Werror                    Terminate compilation if warnings occur
+  @<filename>                Read options and filenames from file
+
+
+C:\Users\arnec\labodvb>
