@@ -20,11 +20,20 @@ public class Subject extends TimerTask implements SubjectInterface {
     
     ArrayList oblijst = new ArrayList();
     int tijd = 0;
+    int deathTimer=20;
     int coolDown = 0;
     private HStaticText score;
     
     public void run() {
+        Player speler = HelloTVXlet.getPlayer();
         tijd++;
+        if (speler.health <= 0) {
+            //System.out.println(speler.health);
+            deathTimer--;
+            if(deathTimer<=0){
+                HelloTVXlet.time.cancel();
+            }
+        }
         if(coolDown > 0){
             coolDown--;
         }
@@ -41,7 +50,6 @@ public class Subject extends TimerTask implements SubjectInterface {
     void CheckCollisionWithPlayer(){
         //System.out.println(oblijst.size());
         Player speler = HelloTVXlet.getPlayer();
-        Live heart = HelloTVXlet.getLives();
         Title gameOver = new Title(250,150,400,400, "Game Over");
         
         score = new HStaticText( Integer.toString(speler.score) ) ;
@@ -57,8 +65,6 @@ public class Subject extends TimerTask implements SubjectInterface {
                 
                 if(oblijst.get(i).getClass()==Player.class){
                     Object spritePlayer= oblijst.get(i);
-                    for(int k=0;k<oblijst.size();k++) {
-                    if(oblijst.get(k).getClass()==Live.class){
                         
                     for(int j=0;j<oblijst.size();j++){
                         if(oblijst.get(j).getClass()==Astroid.class){
@@ -69,15 +75,15 @@ public class Subject extends TimerTask implements SubjectInterface {
                                 System.out.println("Hit by astroid!");
                                 coolDown = 50;
                                 HelloTVXlet.getScene().remove((Astroid)oblijst.get(j));
+                                unregister((Astroid)oblijst.get(j));
                                 speler.takeDamage();
                                 
                                 if (speler.health <= 0) {
-                                    
-                                    
-                                    HelloTVXlet.getScene().add(gameOver);
+                                        HelloTVXlet.getScene().add(gameOver);
                                     HelloTVXlet.getScene().add(score);
                                     
-                                    HelloTVXlet.time.cancel();
+                                    
+                                    
                                     
                                 }
                             }
@@ -91,15 +97,15 @@ public class Subject extends TimerTask implements SubjectInterface {
                                 System.out.println("Hit by enemy rocket!");
                                 coolDown = 50;
                                 HelloTVXlet.getScene().remove((EnemyRocket)oblijst.get(j));
+                                unregister((EnemyRocket)oblijst.get(j));
                                 speler.takeDamage();
                                 
                                 if (speler.health <= 0) {
-                                    
-                                    
-                                    HelloTVXlet.getScene().add(gameOver);
+                                        HelloTVXlet.getScene().add(gameOver);
                                     HelloTVXlet.getScene().add(score);
                                     
-                                    HelloTVXlet.time.cancel();
+                                    
+                                    
                                     
                                 }
                                 
@@ -108,8 +114,8 @@ public class Subject extends TimerTask implements SubjectInterface {
                         }
                         
                       }
-                    }
-                }
+                    
+                
             }
         }
        

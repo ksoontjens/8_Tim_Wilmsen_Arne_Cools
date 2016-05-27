@@ -3,6 +3,7 @@ package hellotvxlet;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.Timer;
 import javax.tv.xlet.*;
 import org.bluray.ui.event.HRcEvent;
@@ -31,6 +32,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
     static HScene scene;
     static Player speler;
     static Live hearts;
+    static ArrayList levens = new ArrayList();
     static Subject publisher;
     private Title titel;
     static Timer time;
@@ -57,9 +59,9 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
         return speler;
     }
     
-    public static Live getLives(){
-        return hearts;
-    }
+//    public static Live getLives(){
+//        return hearts;
+//    }
 
     public void initXlet(XletContext context) {
         
@@ -170,12 +172,18 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
         EnemySpawn spawner= new EnemySpawn();
         scene.add(speler);
         publisher = new Subject();
-        hearts = new Live(30,30);
-        scene.add(hearts);
+//        hearts = new Live(30,30);
+//        scene.add(hearts);
+                for(int i = 0; i < 5;i++){
+            Live leven = new Live(30+i*30,30);
+            levens.add(leven);
+            scene.add((Live)levens.get(i));
+        }
+        
         
         publisher.register(speler);
         publisher.register(spawner);
-        publisher.register(hearts);
+//        publisher.register(hearts);
         
         time.scheduleAtFixedRate(publisher,0,10);
         

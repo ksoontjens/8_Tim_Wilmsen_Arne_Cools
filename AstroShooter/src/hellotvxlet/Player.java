@@ -102,7 +102,14 @@ public class Player extends Sprite implements ObserverInterface {
     
     void takeDamage(){
         health--;
+        
+        if(health<0){
+            return;
+        }
+        HelloTVXlet.getScene().remove((Live)HelloTVXlet.levens.get(health));
+        
     }
+    
     
     void addScore(int scoreAdd){
         score += scoreAdd;
