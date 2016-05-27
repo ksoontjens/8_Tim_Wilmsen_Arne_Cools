@@ -5,9 +5,7 @@
 
 package hellotvxlet;
 
-import java.awt.Color;
 import org.havi.ui.HStaticIcon;
-import org.havi.ui.HVisible;
 
 /**
  *

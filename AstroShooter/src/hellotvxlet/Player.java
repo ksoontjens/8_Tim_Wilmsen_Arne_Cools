@@ -13,7 +13,7 @@ import org.havi.ui.HVisible;
  *
  * @author student
  */
-public class Player extends Sprite {
+public class Player extends Sprite implements ObserverInterface {
     int xPos;
     int yPos;
     int direction = 2;
@@ -22,7 +22,6 @@ public class Player extends Sprite {
     int score = 0;
     
     int cooldown;
-
     
     Image spelerIMG;
     public Player(int x, int y)
@@ -30,7 +29,8 @@ public class Player extends Sprite {
         super(x,y);
         spelerIMG = this.getToolkit().getImage("player.png");
         
-        MediaTracker mt= new MediaTracker(this);
+        
+        MediaTracker mt = new MediaTracker(this);
         mt.addImage(spelerIMG, 1);
        
         try{
@@ -49,7 +49,8 @@ public class Player extends Sprite {
     
     
     public void update(int tijd) {
-        System.out.println("Health: " + health + " - Score: " + score);
+        //System.out.println("Health: " + health + " - Score: " + score);
+        
         
         if(cooldown > 0){
             cooldown--;

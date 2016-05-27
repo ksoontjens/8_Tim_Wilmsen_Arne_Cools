@@ -19,7 +19,6 @@ import org.havi.ui.HBackgroundImage;
 import org.havi.ui.HScene;
 import org.havi.ui.HSceneFactory;
 import org.havi.ui.HScreen;
-import org.havi.ui.HStaticText;
 import org.havi.ui.HStillImageBackgroundConfiguration;
 import org.havi.ui.HTextButton;
 import org.havi.ui.HVisible;
@@ -31,15 +30,16 @@ import org.havi.ui.event.HBackgroundImageListener;
 public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, ResourceClient, HBackgroundImageListener {
     static HScene scene;
     static Player speler;
+    static Live hearts;
     static Subject publisher;
     private Title titel;
     static Timer time;
-    private HTextButton knop1;
-    static HStaticText health;
+    private HTextButton knopStart, knopExit;
+    
     private HScreen screen;
     private HBackgroundDevice bgDev;
     private HStillImageBackgroundConfiguration bgConfig;
-    private HBackgroundImage bgImg1;
+    private HBackgroundImage bgSterren;
   
     public HelloTVXlet() {
         
@@ -55,6 +55,10 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
     
     public static Player getPlayer(){
         return speler;
+    }
+    
+    public static Live getLives(){
+        return hearts;
     }
 
     public void initXlet(XletContext context) {
@@ -78,18 +82,32 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
         
         scene.add(titel);
 
-        knop1 = new HTextButton ( "Start" ) ;
-        knop1. setLocation(250,200) ;
-        knop1. setSize (200,80) ;
-        knop1. setBackground (new DVBColor(0 ,0 ,0 ,179) ) ;
-        knop1.setBackgroundMode ( HVisible .BACKGROUND_FILL) ;
+        knopStart = new HTextButton ( "Start" );
+        knopStart.setLocation(250,200);
+        knopStart.setSize (200,80);
+        knopStart.setBackground (new DVBColor(0 ,0 ,0 ,179) );
+        knopStart.setBackgroundMode ( HVisible .BACKGROUND_FILL);
 
+        knopExit = new HTextButton ( "Exit" );
+        knopExit.setLocation(250,300);
+        knopExit.setSize (200,80);
+        knopExit.setBackground (new DVBColor(0 ,0 ,0 ,179) );
+        knopExit.setBackgroundMode ( HVisible .BACKGROUND_FILL);
+        
+        knopStart.setFocusTraversal ( null , knopExit, null , null );
+        knopExit.setFocusTraversal (knopStart, null , null , null );
+        
+        scene.add(knopStart);
+        scene.add(knopExit);
 
-        scene.add(knop1) ;
-
-        knop1. requestFocus ( ) ;
-        knop1. addHActionListener ( this ) ;
-
+        knopStart.requestFocus ( ) ;
+        
+        knopStart.setActionCommand( "knopStart_actioned" );
+        knopExit.setActionCommand( "knopExit_actioned" );
+        
+        knopStart.addHActionListener ( this ) ;
+        knopExit.addHActionListener ( this ) ;
+        
         time = new Timer();
 
         scene.validate();
@@ -141,8 +159,8 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
         
         m.addUserEventListener(this, rep);
         
-        bgImg1=new HBackgroundImage("sterren.png");
-        bgImg1.load(this);
+        bgSterren=new HBackgroundImage("sterren.png");
+        bgSterren.load(this);
     
     }
 
@@ -152,27 +170,42 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
         EnemySpawn spawner= new EnemySpawn();
         scene.add(speler);
         publisher = new Subject();
+        hearts = new Live(30,30);
+        scene.add(hearts);
         
         publisher.register(speler);
         publisher.register(spawner);
+        publisher.register(hearts);
         
         time.scheduleAtFixedRate(publisher,0,10);
         
     }
 
     public void destroyXlet(boolean unconditional) {
-     
+        
     }
 
     void callback() {
         throw new UnsupportedOperationException("Not yet implemented(callback)");
     }
 
-    public void actionPerformed(ActionEvent arg0) {
-        scene.remove(titel);
-        scene.remove(knop1);
+    public void actionPerformed(ActionEvent evt) {
         
-        pauseXlet();
+        String action = evt.getActionCommand();
+        
+        if (action == "knopStart_actioned") {
+            
+            HelloTVXlet.getScene().removeAll();
+        
+            pauseXlet();
+        }
+        
+        else if (action == "knopExit_actioned") {
+            
+            destroyXlet(true);
+        }
+        
+        
     }
 
     public boolean requestRelease(ResourceProxy proxy, Object requestData) {
@@ -189,7 +222,7 @@ public class HelloTVXlet implements Xlet, UserEventListener, HActionListener, Re
 
     public void imageLoaded(HBackgroundImageEvent e) {
         try {
-            bgConfig.displayImage(bgImg1);
+            bgConfig.displayImage(bgSterren);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

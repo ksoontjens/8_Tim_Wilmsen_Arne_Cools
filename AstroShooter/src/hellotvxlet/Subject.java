@@ -41,6 +41,7 @@ public class Subject extends TimerTask implements SubjectInterface {
     void CheckCollisionWithPlayer(){
         //System.out.println(oblijst.size());
         Player speler = HelloTVXlet.getPlayer();
+        Live heart = HelloTVXlet.getLives();
         Title gameOver = new Title(250,150,400,400, "Game Over");
         
         score = new HStaticText( Integer.toString(speler.score) ) ;
@@ -56,6 +57,9 @@ public class Subject extends TimerTask implements SubjectInterface {
                 
                 if(oblijst.get(i).getClass()==Player.class){
                     Object spritePlayer= oblijst.get(i);
+                    for(int k=0;k<oblijst.size();k++) {
+                    if(oblijst.get(k).getClass()==Live.class){
+                        
                     for(int j=0;j<oblijst.size();j++){
                         if(oblijst.get(j).getClass()==Astroid.class){
                             Object spriteEnemy=oblijst.get(j);
@@ -89,12 +93,24 @@ public class Subject extends TimerTask implements SubjectInterface {
                                 HelloTVXlet.getScene().remove((EnemyRocket)oblijst.get(j));
                                 speler.takeDamage();
                                 
+                                if (speler.health <= 0) {
+                                    
+                                    
+                                    HelloTVXlet.getScene().add(gameOver);
+                                    HelloTVXlet.getScene().add(score);
+                                    
+                                    HelloTVXlet.time.cancel();
+                                    
+                                }
+                                
                             }
 
                         }
+                        
+                      }
                     }
                 }
-                
+            }
         }
        
         
@@ -128,7 +144,6 @@ public class Subject extends TimerTask implements SubjectInterface {
                             if(r2.intersects(r1)){
                                 System.out.println("Enemy destroyed!");
                                 HelloTVXlet.getScene().remove((Enemy)oblijst.get(j));
-                                HelloTVXlet.getScene().remove((Rocket)oblijst.get(i));
                                 unregister((Enemy)oblijst.get(j));
                                 speler.addScore(500);
                             }
